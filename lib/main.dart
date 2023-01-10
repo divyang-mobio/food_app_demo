@@ -10,12 +10,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    precacheImage(
+        const AssetImage("asset/ella-olsson-oPBjWBCcAEo-unsplash.jpg"),
+        context);
     return MaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             primarySwatch: Colors.blue,
-            appBarTheme: const AppBarTheme(backgroundColor: Colors.white, elevation: 0)),
+            appBarTheme:
+                const AppBarTheme(backgroundColor: Colors.white, elevation: 0)),
         onGenerateRoute: RouteGenerator.generateRoute,
         initialRoute: '/');
   }

@@ -1,27 +1,23 @@
+import 'dart:io';
+
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'login_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
+  XFile? photo;
   final _formKey = GlobalKey<FormState>();
+  TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
 
   @override
   void dispose() {
@@ -37,14 +33,14 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Container(
           height: double.infinity,
           width: double.infinity,
-          decoration:  const BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("asset/ella-olsson-oPBjWBCcAEo-unsplash.jpg"),
                 fit: BoxFit.cover),
           ),
           child: Center(
             child: Container(
-              height: MediaQuery.of(context).size.height * .5,
+              height: MediaQuery.of(context).size.height * .7,
               padding: const EdgeInsets.only(left: 10.0, right: 10),
               margin: const EdgeInsets.all(10.0),
               child: Form(
@@ -54,11 +50,47 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('Welcome back!',
+                        const Text('Sign Up',
                             style: TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.w500,
                                 color: Color.fromARGB(255, 222, 61, 104))),
+                        const SizedBox(height: 10),
+                        Center(
+                          child: GestureDetector(
+                            onTap: () async {
+                              final ImagePicker picker = ImagePicker();
+
+                              photo = await picker.pickImage(
+                                  source: ImageSource.camera);
+                              setState(() {});
+                            },
+                            child: CircleAvatar(
+                              radius: 50,
+                              foregroundImage: (photo != null)
+                                  ? FileImage(File((photo?.path).toString()))
+                                  : null,
+                              backgroundColor:
+                                  const Color.fromARGB(255, 225, 210, 210),
+                              child: (photo != null)
+                                  ? null
+                                  : const Icon(Icons.camera_alt_rounded,
+                                      color: Colors.black),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        CustomTextField(
+                            controller: nameController,
+                            labelText: 'Name',
+                            isPassword: false,
+                            validator: (value) {
+                              if (value == '') {
+                                return 'Enter Name';
+                              } else {
+                                return null;
+                              }
+                            }),
                         const SizedBox(height: 10),
                         CustomTextField(
                             controller: emailController,
@@ -88,21 +120,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 return null;
                               }
                             }),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              TextButton(
-                                onPressed: () {},
-                                child: const Text('Forgot Password?',
-                                    style: TextStyle(
-                                        color:
-                                            Color.fromARGB(255, 222, 61, 104))),
-                              )
-                            ]),
                         const SizedBox(height: 10),
                         SizedBox(
                             width: MediaQuery.of(context).size.width,
-                            child: customButton(context, title: 'Log In',
+                            child: customButton(context, title: 'Sign up',
                                 onPressed: () {
                               final isValidForm =
                                   _formKey.currentState?.validate();
@@ -115,14 +136,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("Couldn't have an account ",
+                              Text("Already have an account ",
                                   style:
                                       TextStyle(color: Colors.grey.shade600)),
                               GestureDetector(
                                 onTap: () {
-                                  Navigator.pushNamed(context, '/signUp');
+                                  Navigator.pushNamed(context, '/login');
                                 },
-                                child: const Text('Register',
+                                child: const Text('Login',
                                     style: TextStyle(
                                         color:
                                             Color.fromARGB(255, 222, 61, 104))),
@@ -133,78 +154,6 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-UnderlineInputBorder underLineBorder({required Color borderColor}) {
-  return UnderlineInputBorder(borderSide: BorderSide(color: borderColor));
-}
-
-customButton(context,
-    {required String title, required VoidCallback onPressed}) {
-  return SizedBox(
-    width: MediaQuery.of(context).size.width,
-    child: MaterialButton(
-        onPressed: onPressed,
-        color: const Color.fromARGB(255, 222, 61, 104),
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-        child: Text(title, style: const TextStyle(color: Colors.white))),
-  );
-}
-
-class CustomTextField extends StatefulWidget {
-  const CustomTextField(
-      {Key? key,
-      required this.validator,
-      required this.labelText,
-      required this.isPassword,
-      required this.controller})
-      : super(key: key);
-
-  final TextEditingController controller;
-  final String labelText;
-  final bool isPassword;
-  final FormFieldValidator validator;
-
-  @override
-  State<CustomTextField> createState() => _CustomTextFieldState();
-}
-
-class _CustomTextFieldState extends State<CustomTextField> {
-  bool isVisible = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 75,
-      child: TextFormField(
-        controller: widget.controller,
-        obscureText: widget.isPassword ? isVisible : false,
-        validator: widget.validator,
-        cursorColor: const Color.fromARGB(255, 222, 61, 104),
-        decoration: InputDecoration(
-          suffix: widget.isPassword
-              ? IconButton(
-                  onPressed: () {
-                    setState(() {
-                      isVisible = !isVisible;
-                    });
-                  },
-                  icon: Icon(
-                      isVisible
-                          ? Icons.remove_red_eye_outlined
-                          : Icons.remove_red_eye_rounded,
-                      color: const Color.fromARGB(255, 222, 61, 104)))
-              : null,
-          labelText: widget.labelText,
-          labelStyle: TextStyle(color: Colors.grey.shade700),
-          enabledBorder: underLineBorder(borderColor: Colors.grey.shade400),
-          focusedBorder: underLineBorder(
-              borderColor: const Color.fromARGB(255, 222, 61, 104)),
         ),
       ),
     );

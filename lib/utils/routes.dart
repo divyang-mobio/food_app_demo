@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../views/login_screen.dart';
+import '../views/sign_up_screen.dart';
 import '../views/splash_screen.dart';
 
 class RouteGenerator {
@@ -9,6 +10,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (context) => const SplashScreen());
       case "/login":
         return MaterialPageRoute(builder: (context) => const LoginScreen());
+      case "/signUp":
+        return MaterialPageRoute(builder: (context) => const SignUpScreen());
       default:
         return MaterialPageRoute(builder: (context) => const SplashScreen());
     }
