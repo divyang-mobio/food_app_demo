@@ -37,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Container(
           height: double.infinity,
           width: double.infinity,
-          decoration:  const BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("asset/ella-olsson-oPBjWBCcAEo-unsplash.jpg"),
                 fit: BoxFit.cover),
@@ -108,7 +108,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   _formKey.currentState?.validate();
                               if (isValidForm != null) {
                                 if (isValidForm) {
-                                  print("hi");
+                                  Navigator.pushNamedAndRemoveUntil(
+                                      context, '/main', (r) => false);
                                 }
                               }
                             })),
@@ -183,6 +184,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       height: 75,
       child: TextFormField(
         controller: widget.controller,
+        style: const TextStyle(color: Color.fromARGB(255, 222, 61, 104)),
         obscureText: widget.isPassword ? isVisible : false,
         validator: widget.validator,
         cursorColor: const Color.fromARGB(255, 222, 61, 104),

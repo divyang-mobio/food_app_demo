@@ -18,8 +18,11 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             primarySwatch: Colors.blue,
-            appBarTheme:
-                const AppBarTheme(backgroundColor: Colors.white, elevation: 0)),
+            appBarTheme: const AppBarTheme(
+                backgroundColor: Colors.white,
+                elevation: 0,
+                titleTextStyle: TextStyle(color: Colors.black),
+                iconTheme: IconThemeData(color: Colors.black))),
         onGenerateRoute: RouteGenerator.generateRoute,
         initialRoute: '/');
   }

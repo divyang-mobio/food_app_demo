@@ -16,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   redirect() {
     Future.delayed(const Duration(seconds: 2))
-        .whenComplete(() => Navigator.pushNamedAndRemoveUntil(context, '/login', (r) => false));
+        .whenComplete(() => Navigator.pushNamedAndRemoveUntil(context, '/main', (r) => false));
   }
 
   @override

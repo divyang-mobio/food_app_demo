@@ -129,7 +129,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   _formKey.currentState?.validate();
                               if (isValidForm != null) {
                                 if (isValidForm) {
-                                  print("hi");
+                                  Navigator.pushNamedAndRemoveUntil(
+                                      context, '/main', (r) => false);
                                 }
                               }
                             })),
