@@ -1,6 +1,6 @@
 class DataModel {
   String title, image, description, type;
-  int pric;
+  int price;
 
   DataModel(
       {required this.price,
