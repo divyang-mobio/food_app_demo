@@ -3,7 +3,7 @@ class DataModel {
   int price;
 
   DataModel(
-      {required this.pric,
+      {required this.price,
       required this.image,
       required this.description,
       required this.title,

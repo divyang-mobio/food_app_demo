@@ -140,10 +140,6 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
-UnderlineInputBorder underLineBorder({required Color borderColor}) {
-  return UnderlineInputBorder(borderSide: BorderSide(color: borderColor));
-}
-
 customButton(context,
     {required String title, required VoidCallback onPressed}) {
   return SizedBox(
@@ -211,4 +207,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
       ),
     );
   }
+}
+
+UnderlineInputBorder underLineBorder({required Color borderColor}) {
+  return UnderlineInputBorder(borderSide: BorderSide(color: borderColor));
 }

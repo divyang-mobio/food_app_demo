@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:food_app_demo/model/data_model.dart';
 import '../model/navigation_model.dart';
 import '../views/detail_screen.dart';
+import '../views/edit_profile_screen.dart';
 import '../views/login_screen.dart';
 import '../views/main_screen.dart';
+import '../views/profile_screen.dart';
 import '../views/sign_up_screen.dart';
 import '../views/splash_screen.dart';
 
@@ -16,6 +17,11 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (context) => const LoginScreen());
       case "/main":
         return MaterialPageRoute(builder: (context) => const MainScreen());
+      case "/profile":
+        return MaterialPageRoute(builder: (context) => const ProfileScreen());
+      case "/editProfile":
+        return MaterialPageRoute(
+            builder: (context) => const EditProfileScreen());
       case "/detail":
         final args = setting.arguments as NavigationModel;
         return MaterialPageRoute(

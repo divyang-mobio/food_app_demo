@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../resources/resources.dart';
 import 'category_screens.dart';
 
@@ -47,7 +46,10 @@ class _MainScreenState extends State<MainScreen> {
                   flexibleSpace:
                       flexibleSpaceBar(title: 'Simple way to find Tasty food'),
                   actions: [
-                    IconButton(onPressed: () {}, icon: const Icon(Icons.menu))
+                    IconButton(
+                        onPressed: () =>
+                            Navigator.pushNamed(context, '/profile'),
+                        icon: const Icon(Icons.menu))
                   ],
                   floating: false,
                   pinned: true,
