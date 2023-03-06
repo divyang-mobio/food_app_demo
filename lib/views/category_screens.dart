@@ -148,7 +148,7 @@ Padding gridView({required List<DataModel> data}) {
                     child: Image.asset(data[index].image, fit: BoxFit.fill),
                   )),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(12.0),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
