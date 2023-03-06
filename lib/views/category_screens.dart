@@ -160,7 +160,7 @@ Padding gridView({required List<DataModel> data}) {
                           style: const TextStyle(fontWeight: FontWeight.bold)),
                       const SizedBox(height: 10),
                       Text(data[index].description,
-                          overflow: TextOverflow.ellipsis, maxLines: 5),
+                          overflow: TextOverflow.ellipsis, maxLines: 2),
                     ]),
               )
             ]),
